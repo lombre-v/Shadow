@@ -1,7 +1,7 @@
 {
   "facebookAccount": {
     "email": "karmelsensei@gmail.com",
-    "password": "sasori",
+    "password": "Shadownoire",
     "2FASecret": "",
     "i_user": "",
     "proxy": null,
@@ -22,8 +22,8 @@
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "『𝐒𝐀 𝐌𝐈』ホ",
-  "prefix": "¥",
+  "nickNameBot": "ཐིི༏ཋྀ.sʜᴀᴅᴏᴡ ぐき",
+  "prefix": "*",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",
