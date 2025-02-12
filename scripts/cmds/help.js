@@ -32,10 +32,10 @@ module.exports = {
 
     if (args.length === 0) {
       const categories = {};
-      let msg = "╭───────❁";
+      let msg = "╭───────🎯";
 
-      msg += `\n│✨𝐁𝐋𝐀𝐙𝐄𝐑 𝐂𝐌𝐃𝐒 ✨ \n╰────────────❁`; 
-
+      msg += `\n│🌡️✨𝐄𝐆𝐆𝐌𝐀𝐍 𝐂𝐌𝐃𝐒 ✨🌡️ \n╰────────────🎯`; 
+    msg += `\n━━━━━━━━━━━━━━━` ;
       for (const [name, value] of commands) {
         if (value.config.role > 1 && role < value.config.role) continue;
 
@@ -46,12 +46,12 @@ module.exports = {
 
       Object.keys(categories).forEach((category) => {
         if (category !== "info") {
-          msg += `\n╭─────🧸『  ${category.toUpperCase()}  』`;
+          msg += `\n╭──シ 🌡️🩺${category.toUpperCase()} 🩺🌡️ `;
 
 
           const names = categories[category].commands.sort();
           for (let i = 0; i < names.length; i += 3) {
-            const cmds = names.slice(i, i + 2).map((item) => `\n ✨🩸➣🎯${item}🎯`);
+            const cmds = names.slice(i, i + 2).map((item) => `\n│ 🧬✘.${item}–シ🧬`);
             msg += `\n│${cmds.join(" ".repeat(Math.max(1, 5 - cmds.join("").length)))}`;
           }
 
@@ -60,11 +60,21 @@ module.exports = {
       });
 
       const totalCommands = commands.size;
-      msg += `\nαƈƚυҽʅʅҽɱҽɳƚ  ʅҽ Ⴆσƚ  ԃιʂρσʂҽ  ԃҽ 🍁${totalCommands}🍁 ƈσɱɱαɳԃҽʂ !\n`;
-      msg += `ʂαιʂιʂ 🎶${prefix}ԋҽʅρ🎶  ʂυιʋι ԃυ ɳσɱ ԃҽ ʅα ƈσɱɱαɳԃҽ ρσυɾ ƈσɳɳαιƚɾҽ𝐞 ρʅυʂ ԃҽ ԃҽƚαιʅ ʂυɾ ʅα ƈɱԃ !`;
-      msg += `\n╭─────✰\n |✨ 『𝐁𝐋𝐀𝐙𝐄𝐑 𝐁𝐎𝐓』ホ \n╰────────────✰`; 
+      msg += `\n𝐀𝐜𝐭𝐮𝐞𝐥𝐥𝐞𝐦𝐞𝐧𝐭 𝘀𝗵𝗮𝗱𝗼𝘄 𝐝𝐢𝐬𝐩𝐨𝐬𝐞 𝐝𝐞 🍁${totalCommands}🍁 𝐜𝐨𝐦𝐦𝐚𝐧𝐝𝐞𝐬 !\n`;
+      msg += `𝐒𝐚𝐢𝐬𝐢𝐬 🎶${prefix}𝐡𝐞𝐥𝐩🎶  𝐬𝐮𝐢𝐯𝐢 𝐝𝐮 𝐧𝐨𝐦 𝐝𝐞 𝐥𝐚 𝐜𝐨𝐦𝐦𝐚𝐧𝐝𝐞 𝐩𝐨𝐮𝐫 𝐜𝐨𝐧𝐧𝐚𝐢𝐭𝐫𝐞 𝐩𝐥𝐮𝐬 𝐝𝐞 𝐝𝐞𝐭𝐚𝐢𝐥𝐬 𝐬𝐮𝐫 𝐥𝐚 𝐜𝐦𝐝 !`;
+      msg +=`━━━━━━━━━━━━━━━`;
 
- 				const helpListImages = [ "https://i.imgur.com/GSxUIa4.gif" ];
+      msg +=  `\n ✨🎶 𝐒𝐚𝐢𝐬𝐢𝐬 ${prefix}shadowgc 𝐩𝐨𝐮𝐫  𝐫𝐞𝐣𝐨𝐢𝐧𝐝𝐫𝐞 𝐧𝐨𝐭𝐫𝐞  𝐦𝐚𝐠𝐧𝐢𝐟𝐢𝐪𝐮𝐞 𝐠𝐫𝐨𝐮𝐩𝐞, 𝐥𝐚̀ 𝐨𝐮̀  𝐫𝐞𝐠𝐧𝐞𝐧𝐭 𝐥𝐞𝐬 𝐦𝐞𝐢𝐥𝐥𝐞𝐮𝐫𝐬 𝐝𝐢𝐯𝐞𝐫𝐭𝐢𝐬𝐬𝐞𝐦𝐞𝐧𝐭 𝐞𝐭 𝐝𝐞 𝐛𝐞𝐥𝐥𝐞𝐬 𝐦𝐨𝐦𝐞𝐧𝐭 🎁🎉  `; 
+
+      msg +=`━━━━━━━━━━━━━━━`;
+
+ 				const helpListImages = [
+
+"https://i.imgur.com/GSxUIa4.gif",
+"https://i.imgur.com/shoaM4J.mp4',",
+"https://i.imgur.com/KHAlJw5.mp4" 
+
+];
 
 
       const helpListImage = helpListImages[Math.floor(Math.random() * helpListImages.length)];
@@ -118,4 +128,4 @@ function roleTextToString(roleText) {
     default:
       return "Unknown role";
   }
-	}
+	  }
