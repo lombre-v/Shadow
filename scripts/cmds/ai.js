@@ -1,7 +1,6 @@
  const axios = require('axios');
 
 let PriyaPrefix = [
-  'bot',
   'ai',
   '.ai', // Add Your Prefix Here
 ];
@@ -25,7 +24,7 @@ module.exports = {
     const command = args[0].toLowerCase();
 
     // Help Command
-    if (command === 'help') {
+    if (command === '🇻🇳') {
       const helpMessage = `
       🌟 *AI Commands* 🌟
       - Prefixes: ${PriyaPrefix.join(', ')}
