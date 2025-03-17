@@ -1,63 +1,60 @@
-const fs = require('fs');
-const path = require('path');
 const axios = require('axios');
 
-module.exports = {
-  config: {
-    name: "goatbin",
-    aliases: ["bin"],
-    version: "1.0",
-    author: "GoatMart",
-    countDown: 5,
-    role: 2,
-    shortDescription: {
-      en: "Upload files and get cmds short links"
-    },
-    longDescription: {
-      en: "This command allows you to upload files to goatbin and sends the link to the file."
-    },
-    category: "admin",
-    guide: {
-      en: "To use this command, type goatbin <filename>. The file must be located in the 'cmds' folder."
-    }
-  },
+module.exports.config = {
+  name: "goatbin",
+  aliases: ["imgur", "i"],
+  version: "3.0",
+  author: "GoatMart",
+  countDown: 5,
+  role: 0,
+  category: "tools",
+  description: "Upload text or media to get GoatBin link.",
+  usages: "Reply to text or media, or type text directly.",
+};
 
-  onStart: async function({ api, event, args }) {
-    if (args.length === 0) {
-      return api.sendMessage('Please provide the filename to upload. Usage: {p}pastebin <filename>', event.threadID, event.messageID);
-    }
-    const permission = ["100080355760429"];
-    if (!permission.includes(event.senderID)) {
-      return api.sendMessage("Imbécile....t'as rien à foutre dans les fichiers de ʬɸʬ Blåzė Nøvã ʬɸʬ😒🖕", event.threadID, event.messageID);
-    }
-    const fileName = args[0];
-    const filePathWithoutExtension = path.join(__dirname, '..', 'cmds', fileName);
-    const filePathWithExtension = path.join(__dirname, '..', 'cmds', fileName + '.js');
+module.exports.onStart = async function ({ api, event, args }) {
+  const baseApiUrl = "https://goatbiin.onrender.com/v1";
 
-    if (!fs.existsSync(filePathWithoutExtension) && !fs.existsSync(filePathWithExtension)) {
-      return api.sendMessage('Invalid command.', event.threadID, event.messageID);
-    }
+  const attachments = event.messageReply?.attachments;
+  const repliedText = event.messageReply?.body;
+  const userText = args.join(" ");
 
-    const filePath = fs.existsSync(filePathWithoutExtension) ? filePathWithoutExtension : filePathWithExtension;
+  if (attachments && attachments.length > 0) {
+    try {
+      const mediaLinks = [];
 
-    fs.readFile(filePath, 'utf8', async (err, data) => {
-      if (err) {
-        return api.sendMessage('An error occurred while reading the file.', event.threadID, event.messageID);
-      }
-
-      try {
-        const response = await axios.post('https://g-v1.onrender.com/v1/paste', { code: data });
-
-        if (response.data && response.data.link) {
-          const Link = response.data.link;
-          api.sendMessage(Link, event.threadID, event.messageID);
-        } else {
-          api.sendMessage('Failed to upload the command to . Please try again later.', event.threadID, event.messageID);
+      for (const attachment of attachments) {
+        if (attachment.url) {
+          const { data } = await axios.post(`${baseApiUrl}/upload`, { url: attachment.url });
+          if (data.link) mediaLinks.push(data.link);
         }
-      } catch (uploadErr) {
-        console.error(uploadErr);
-        api.sendMessage('An error occurred while uploading the command.', event.threadID, event.messageID);
       }
-    });
-  },
+
+      if (mediaLinks.length > 0) {
+        return api.sendMessage(`${mediaLinks.join("\n")}`, event.threadID, event.messageID);
+      } else {
+        return api.sendMessage("Failed to upload media.", event.threadID, event.messageID);
+      }
+    } catch (err) {
+      return api.sendMessage(`Media Upload Error: ${err.message}`, event.threadID, event.messageID);
+    }
+  }
+
+  if (repliedText || userText) {
+    const textToPaste = repliedText || userText;
+
+    try {
+      const response = await axios.post(`${baseApiUrl}/paste`, { code: textToPaste });
+
+      if (response.data && response.data.link) {
+        return api.sendMessage(`${response.data.link}`, event.threadID, event.messageID);
+      } else {
+        return api.sendMessage("Failed to paste the text.", event.threadID, event.messageID);
+      }
+    } catch (err) {
+      return api.sendMessage(`Paste Error: ${err.message}`, event.threadID, event.messageID);
+    }
+  }
+
+  return api.sendMessage("Please reply to some text or media, or type text directly to paste it to GoatBin.", event.threadID, event.messageID);
 };
