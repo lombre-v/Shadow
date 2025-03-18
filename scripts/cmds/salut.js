@@ -15,6 +15,6 @@ onChat: async function({
     message,
     getLang
 }) {
-    if (event.body && event.body.toLowerCase() == "salut") return message.reply("🎊 𝐬𝐚𝐥𝐮𝐭 𝐦𝐞𝐜 𝐞𝐜𝐫𝐢𝐭 💁‍♂️✨웃➣..『¥blazegc』𝐩𝐨𝐮𝐫 𝐫𝐞𝐣𝐨𝐢𝐧𝐝𝐫𝐞 𝐦𝐨𝐧 𝐠𝐫𝐨𝐮𝐩𝐞 🎉✨");
+    if (event.body && event.body.toLowerCase() == "salut") return message.reply("🎊 𝐬𝐚𝐥𝐮𝐭 𝗹'𝗮𝗺𝗶 (𝗲) 𝐞𝐜𝐫𝐢𝐭 💁‍♂️✨웃➣..『*blazegc』𝐩𝐨𝐮𝐫 𝐫𝐞𝐣𝐨𝐢𝐧𝐝𝐫𝐞 𝐦𝐨𝐧 𝐠𝐫𝐨𝐮𝐩𝐞 🎉✨");
 }
 };
