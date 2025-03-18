@@ -1,91 +1,47 @@
  const axios = require('axios');
 
-let PriyaPrefix = [
-  'ai',
-  '.ai', // Add Your Prefix Here
+const Prefixes = [
+  'shadow'
 ];
-
-const axiosInstance = axios.create();
 
 module.exports = {
   config: {
-    name: 'ai',
-    version: '2.2.0',
-    role: 0,
-    category: 'AI',
-    author: 'Priyanshi || Priyansh',
-    shortDescription: 'Artificial Intelligence',
-    longDescription: 'Ask Anything To Ai For Your Answers',
+    name: "ask",
+    version: 1.0,
+    author: "Ntkhang", // 
+    longDescription: "AI", 
+    category: "ai",
+    guide: {
+      en: "{p} questions",
+    },
   },
-
   onStart: async function () {},
-
-  onChat: async function ({ message, event, args, api, threadID, messageID }) {
-    const command = args[0].toLowerCase();
-
-    // Help Command
-    if (command === '🇻🇳') {
-      const helpMessage = `
-      🌟 *AI Commands* 🌟
-      - Prefixes: ${PriyaPrefix.join(', ')}
-      - Add Prefix: addprefix <prefix>
-      - AI Query: ${PriyaPrefix[0]} <your query>
-      - Say Hi: hi
-      `;
-      await message.reply(helpMessage);
-      return;
-    }
-
-    // Add New Prefix Command
-    if (command === 'addprefix') {
-      const newPrefix = args[1];
-      if (newPrefix && !PriyaPrefix.includes(newPrefix)) {
-        PriyaPrefix.push(newPrefix);
-        await message.reply(`New prefix "${newPrefix}" added successfully!`);
-      } else {
-        await message.reply('Please provide a valid and unique prefix.');
-      }
-      return;
-    }
-
-    // Check for prefixes in the message
-    const ahprefix = PriyaPrefix.find((p) => event.body && event.body.toLowerCase().startsWith(p));
-    if (!ahprefix) {
-      return;
-    }
-
-    const priya = event.body.substring(ahprefix.length).trim();
-    if (!priya) {
-      await message.reply('Enter a question 🥹?');
-      return;
-    }
-
-    const apply = [
-      '𝚎𝚗𝚝𝚎𝚛 (𝚚)*',
-      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙷𝚎𝚕𝚙 𝚈𝚘𝚞?',
-      '𝚀𝚞𝚊𝚛𝚢 𝙿𝚕𝚎𝚊𝚜𝚎....',
-      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙰𝚜𝚜𝚒𝚜𝚝 𝚈𝚘𝚞?',
-      '𝙶𝚛𝚎𝚎𝚝𝚒𝚗𝚐𝚜!',
-      '𝙸𝚜 𝚃𝚑𝚎𝚛𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐 𝙴𝚕𝚜𝚎 𝙸 𝙲𝚊𝚗 𝙳𝚘?'
-    ];
-    const randomapply = apply[Math.floor(Math.random() * apply.length)];
-
-    if (command === 'hi') {
-      await message.reply(randomapply);
-      return;
-    }
-
-    const encodedPrompt = encodeURIComponent(args.join(' '));
-
-    await message.reply('Please wait 🥹');
-
+  onChat: async function ({ api, event, args, message }) {
     try {
-      const response = await axiosInstance.get(`https://priyansh-ai.onrender.com/gemini/ai?query=${encodedPrompt}`);
-      const Priya = response.data;
-      const priyares = `${Priya}`;
-      await message.reply(priyares);
+      
+      const prefix = Prefixes.find((p) => event.body && event.body.toLowerCase().startsWith(p));
+      if (!prefix) {
+        return; // Invalid prefix, ignore the command
+      }
+      const prompt = event.body.substring(prefix.length).trim();
+
+      if (!prompt) {
+        await message.reply("𝐒𝐚𝐥𝐮𝐭 𝐥'𝐚𝐦𝐢𝐞 🎶❤️‍🔥😸 𝐦𝐨𝐢 𝐜'𝐞𝐬𝐭 ཐིི༏ཋྀ sʜᴀᴅᴏᴡ ぐき 𝐓𝐡𝐞 𝐇𝐞𝐝𝐠𝐞𝐡𝐨𝐠 𝐁𝐨𝐭 🦔 ... 𝐜𝐫𝐞́𝐞́ 𝐩𝐚𝐫 𝐥𝐞 𝐃𝐫 𝐞𝐠𝐠𝐦𝐚𝐧 𝐠𝐫𝐚𝐜𝐞 𝐚 𝐥' 𝐚𝐝𝐧 𝐝𝐮 𝐠𝐫𝐚𝐧𝐝 𝐬𝐨𝐧𝐢𝐜 𝐣𝐞 𝐬𝐮𝐢𝐬 𝐢𝐜𝐢 𝐩𝐨𝐮𝐫 𝐫𝐞𝐬𝐨𝐮𝐝𝐫𝐞 𝐭𝐞𝐬 𝐩𝐫𝐨𝐛𝐥𝐞𝐦𝐞𝐬...𝐪𝐮𝐞𝐥 𝐞𝐬𝐭 𝐭𝐨𝐧 𝐬𝐨𝐮𝐜𝐢 ⁉️");
+        return;
+      }
+
+      if (prompt.toLowerCase() === "qui es-tu" || prompt.toLowerCase() === "qui es tu" || prompt.toLowerCase() === "qui es tu") {
+        await message.reply("Je suis une intelligence artificielle du Projet Hedgehog-Bot-V2 créé par le développeur ミ★𝐒𝐎𝐍𝐈𝐂✄𝐄𝐗𝐄 3.0★彡.");
+        return;
+      }
+
+      const response = await axios.get(`https://sandipbaruwal.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
+      const answer = response.data.answer;
+
+      await message.reply({ body: `ཐིི༏ཋྀ sʜᴀᴅᴏᴡ〈 な\n━━━━━━━━━━━━━━━━\n${answer}\n━━━━━━━━━━━━━━━━`, });
+
     } catch (error) {
-      await message.reply('Oops! Something went wrong. Please try again later.');
+      console.error("Error:", error.message);
     }
   }
 };
