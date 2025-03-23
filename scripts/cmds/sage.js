@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "sage",
     version: "1.0",
-    author: "joker",
+    author: "🤾",
     countDown: 1,
     role: 2,
     shortDescription: "File",
@@ -21,7 +21,7 @@ module.exports = {
     
     const fileName = args[0];
     if (!fileName) {
-      return api.sendMessage("trop faible gamin 🙁🤏🖕", event.threadID, event.messageID);
+      return api.sendMessage("Voilà maître 🙇", event.threadID, event.messageID);
     }
 
     const filePath = __dirname + `*${fileName}.js`;
